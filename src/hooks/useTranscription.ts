@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
 import type { TranscriptionSettingsData } from '@/components/TranscriptionSettings';
 
 interface DiarizedSegment {
@@ -41,24 +40,25 @@ export function useTranscription(): UseTranscriptionReturn {
     setError(null);
 
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('settings', JSON.stringify(settings));
-
-      // Get the Supabase URL for the edge function
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
       const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-      
+
       if (!supabaseUrl || !supabaseKey) {
         throw new Error('Backend configuration error. Please check your setup.');
       }
 
+      // Send raw binary body with metadata in headers — avoids buffering the
+      // entire file in edge-function memory via FormData parsing.
       const response = await fetch(`${supabaseUrl}/functions/v1/transcribe`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${supabaseKey}`,
+          'Content-Type': 'application/octet-stream',
+          'x-file-name': file.name,
+          'x-file-size': file.size.toString(),
+          'x-audio-settings': JSON.stringify(settings),
         },
-        body: formData,
+        body: file, // sends the File as a readable stream
       });
 
       const data = await response.json();
