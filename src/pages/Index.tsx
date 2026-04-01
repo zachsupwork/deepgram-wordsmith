@@ -147,7 +147,7 @@ export default function Index() {
           {/* Info Footer */}
           <div className="mt-8 text-center text-sm text-muted-foreground">
             <p>
-              Supports WAV, MP3, M4A, AAC, OGG, and AMR formats up to 50MB
+              Supports WAV, MP3, M4A, AAC, OGG, and AMR formats up to 500MB
             </p>
           </div>
         </div>
