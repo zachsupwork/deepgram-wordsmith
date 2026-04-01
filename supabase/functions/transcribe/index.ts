@@ -21,7 +21,7 @@ const SUPPORTED_AUDIO_TYPES = [
 ];
 
 const SUPPORTED_EXTENSIONS = ['.wav', '.mp3', '.m4a', '.aac', '.ogg', '.amr'];
-const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+const MAX_FILE_SIZE = 500 * 1024 * 1024; // 500MB
 
 interface TranscriptionSettings {
   language: string;

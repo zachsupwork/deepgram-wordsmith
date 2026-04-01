@@ -11,7 +11,7 @@ interface FileUploadProps {
 }
 
 const ACCEPTED_TYPES = ['.wav', '.mp3', '.m4a', '.aac', '.ogg', '.amr'];
-const MAX_SIZE_MB = 50;
+const MAX_SIZE_MB = 500;
 const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
 
 export function FileUpload({ onFileSelect, selectedFile, onClear, isDisabled }: FileUploadProps) {
