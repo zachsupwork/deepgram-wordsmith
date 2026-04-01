@@ -21,7 +21,7 @@ const SUPPORTED_AUDIO_TYPES = [
 ];
 
 const SUPPORTED_EXTENSIONS = ['.wav', '.mp3', '.m4a', '.aac', '.ogg', '.amr'];
-const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+const MAX_FILE_SIZE = 500 * 1024 * 1024; // 500MB
 
 interface TranscriptionSettings {
   language: string;
@@ -209,7 +209,7 @@ serve(async (req) => {
     // Validate file size
     if (file.size > MAX_FILE_SIZE) {
       return new Response(
-        JSON.stringify({ error: `File too large. Maximum size is 50MB. Your file is ${(file.size / (1024 * 1024)).toFixed(1)}MB.` }),
+        JSON.stringify({ error: `File too large. Maximum size is 500MB. Your file is ${(file.size / (1024 * 1024)).toFixed(1)}MB.` }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
